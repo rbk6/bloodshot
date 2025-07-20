@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://wu01ona5vmkh"]
+[gd_scene load_steps=8 format=3 uid="uid://wu01ona5vmkh"]
 
 [ext_resource type="Script" uid="uid://bieuyapg5x7wp" path="res://scenes/characters/BaseCharacter.gd" id="1_xktx3"]
+[ext_resource type="PackedScene" uid="uid://cyx14aqx5bc2m" path="res://scenes/objects/DefaultWeapon.tscn" id="2_u1txu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u1txu"]
 
@@ -24,6 +25,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_u1txu")
 
 [node name="CharacterModel" type="Node3D" parent="."]
+
+[node name="DefaultWeapon" parent="CharacterModel" instance=ExtResource("2_u1txu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.568701, 1.05538, -0.489095)
 
 [node name="Face" type="MeshInstance3D" parent="CharacterModel"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.44454, -0.489095)
