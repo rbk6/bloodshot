@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn5m12724ckxo"]
+
+[ext_resource type="Script" uid="uid://baqpwwr3b12p3" path="res://scenes/game.gd" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://bm565v7qsy15v" path="res://scenes/ui/ui.tscn" id="2_yqjtg"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_uwrxv")
+
+[node name="Ui" parent="." instance=ExtResource("2_yqjtg")]
+
+[node name="Stage" type="Node3D" parent="."]

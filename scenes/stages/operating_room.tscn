@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjcilyx3cby2v"]
 
-[ext_resource type="PackedScene" uid="uid://wu01ona5vmkh" path="res://scenes/characters/BaseCharacter.tscn" id="1_luat1"]
+[ext_resource type="PackedScene" uid="uid://wu01ona5vmkh" path="res://scenes/characters/character.tscn" id="1_wa0ju"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_luat1"]
 albedo_color = Color(0.758857, 0.727897, 1, 1)
@@ -19,4 +19,4 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30.
 light_color = Color(0.860767, 0.933977, 0.984082, 1)
 light_energy = 0.5
 
-[node name="BaseCharacter" parent="." instance=ExtResource("1_luat1")]
+[node name="BaseCharacter" parent="." instance=ExtResource("1_wa0ju")]

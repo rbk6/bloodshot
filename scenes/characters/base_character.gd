@@ -3,7 +3,7 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
-var bullet = load("res://scenes/objects/Bullet.tscn")
+var bullet = load("res://scenes/entities/Bullet.tscn")
 var instance
 
 @onready var model = $CharacterModel
@@ -44,7 +44,7 @@ func handle_input(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(delta)
 		
-func shoot(delta: float) -> void:
+func shoot(_delta: float) -> void:
 	#if !gun_anim.is_playing():
 		#gun_anim.play("shoot")
 		#instance = bullet.instantiate()

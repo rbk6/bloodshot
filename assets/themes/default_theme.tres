@@ -1,0 +1,45 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bmoau6b8yucg7"]
+
+[ext_resource type="FontFile" uid="uid://bady7tkspsfti" path="res://assets/fonts/RomanAntique.ttf" id="1_sx0q5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5sm08"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qqye0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cytoj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b4fcc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2reeo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3wao"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ccda"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqm40"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_soce2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ci470"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2cxao"]
+
+[resource]
+default_font = ExtResource("1_sx0q5")
+default_font_size = 48
+Button/colors/font_color = Color(0.8, 0.8, 0.8, 1)
+Button/colors/font_focus_color = Color(0.55, 0, 0.155833, 1)
+Button/colors/font_hover_color = Color(0.886275, 0, 0.27451, 1)
+Button/colors/font_hover_pressed_color = Color(0.886275, 0, 0.27451, 1)
+Button/colors/font_pressed_color = Color(0.886275, 0, 0.27451, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_5sm08")
+Button/styles/disabled_mirrored = SubResource("StyleBoxEmpty_qqye0")
+Button/styles/focus = SubResource("StyleBoxEmpty_cytoj")
+Button/styles/hover = SubResource("StyleBoxEmpty_b4fcc")
+Button/styles/hover_mirrored = SubResource("StyleBoxEmpty_2reeo")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_q3wao")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3ccda")
+Button/styles/normal = SubResource("StyleBoxEmpty_vqm40")
+Button/styles/normal_mirrored = SubResource("StyleBoxEmpty_soce2")
+Button/styles/pressed = SubResource("StyleBoxEmpty_ci470")
+Button/styles/pressed_mirrored = SubResource("StyleBoxEmpty_2cxao")
