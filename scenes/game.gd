@@ -11,13 +11,15 @@ var level_instance: Node3D
 func _ready() -> void:
 	Global.main_scene = self
 	main_menu.start_game.connect(start_game)
-	load_music("res://assets/Audio/title loop.mp3")
+	load_music("res://assets/Audio/Music/title loop.mp3")
+
 
 func start_game():
 	main_menu.hide()
 	ui.show()
 	stage.show()
 	load_level("operating_room")
+	load_music("res://assets/Audio/Music/level 1.mp3")
 
 func unload_level():
 	if is_instance_valid(level_instance):
