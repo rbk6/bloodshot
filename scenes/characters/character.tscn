@@ -41,9 +41,10 @@ skeleton = NodePath("../..")
 [node name="CameraController" type="Node3D" parent="."]
 
 [node name="CameraTarget" type="Node3D" parent="CameraController"]
-transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 7.80517, 8.28103, 9.60409)
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 30, 30, 32)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/CameraTarget"]
 transform = Transform3D(1, 0, 0, 0, 1, -5.66244e-07, 0, -5.96046e-08, 1, 0.954621, -0.202313, -6.72203)
 projection = 1
-size = 10.0
+size = 18.0
+far = 150.0

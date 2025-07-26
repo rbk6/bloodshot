@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://baqpwwr3b12p3" path="res://scenes/game.gd" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://bm565v7qsy15v" path="res://scenes/ui/ui.tscn" id="2_yqjtg"]
-[ext_resource type="AudioStream" uid="uid://cq0c0cmq31x87" path="res://assets/Audio/Music/title loop.mp3" id="3_lnu2h"]
+[ext_resource type="AudioStream" uid="uid://cq0c0cmq31x87" path="res://assets/audio/music/title loop.mp3" id="3_lnu2h"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
