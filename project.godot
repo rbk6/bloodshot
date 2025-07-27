@@ -22,6 +22,12 @@ buses/default_bus_layout=""
 
 Global="*res://scripts/global.gd"
 
+[global_group]
+
+Player="The Player Character"
+Projectile="Blood."
+Enemy="eeeevil"
+
 [input]
 
 ui_accept={

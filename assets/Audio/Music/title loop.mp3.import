@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cq0c0cmq31x87"
-path="res://.godot/imported/title loop.mp3-9c3fdf9e0f6c61836d62c33495f8a42e.mp3str"
+path="res://.godot/imported/title loop.mp3-c9d8cda5d08528a3e1e1ff77fed28b9f.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/music/title loop.mp3"
-dest_files=["res://.godot/imported/title loop.mp3-9c3fdf9e0f6c61836d62c33495f8a42e.mp3str"]
+source_file="res://assets/Audio/Music/title loop.mp3"
+dest_files=["res://.godot/imported/title loop.mp3-c9d8cda5d08528a3e1e1ff77fed28b9f.mp3str"]
 
 [params]
 

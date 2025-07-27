@@ -40,7 +40,7 @@ var state_dict = {
 	PlayerState.JUMP_IDLE_UP: {"anim_name": "Jump Up Idle", "blend_time": 2, "speed": 0.7},
 	PlayerState.JUMP_LAND: {"anim_name": "Jump Land", "blend_time": 0, "speed": 1.0},
 	PlayerState.FALLING: {"anim_name": "Fall Idle", "blend_time": 0.2, "speed": 1.0},
-	PlayerState.SHOOTING: {"anim_name": "Shoot", "blend_time": 0.3, "speed": 1.0},
+	PlayerState.SHOOTING: {"anim_name": "Shoot", "blend_time": 0, "speed": 1.0},
 	PlayerState.HURT: {"anim_name": "Hurt", "blend_time": 0.2, "speed": 1.0},
 	PlayerState.DEATH: {"anim_name": "Death", "blend_time": 0.5, "speed": 1.0}
 }
@@ -49,6 +49,11 @@ var state_dict = {
 # -----
 var player_health = 3
 var player_state = PlayerState.IDLE
+var has_bullet: bool = true
+
+# MISC
+# -----
+var bullet_transition = 0
 
 # RENDERING
 # ---------

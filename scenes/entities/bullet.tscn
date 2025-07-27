@@ -1,27 +1,152 @@
-[gd_scene load_steps=4 format=3 uid="uid://cullhjclf33ii"]
+[gd_scene load_steps=10 format=3 uid="uid://cullhjclf33ii"]
 
 [ext_resource type="Script" uid="uid://dr1vjiswhtro8" path="res://scenes/entities/bullet.gd" id="1_ma0cl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcv5w"]
 albedo_color = Color(0.739789, 1.93726e-06, 9.62615e-07, 1)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.365403, 3.66997e-07, 2.64719e-07, 1)
+emission_energy_multiplier = 9.14
 
 [sub_resource type="SphereMesh" id="SphereMesh_wv221"]
 material = SubResource("StandardMaterial3D_gcv5w")
 
-[node name="Bullet" type="Node3D"]
+[sub_resource type="Animation" id="Animation_o0hai"]
+resource_name = "puddle"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5, 0.075, 1.5), Vector3(4, 0.2, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00666668),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.00330758, -0.478521, -0.00681281)]
+}
+
+[sub_resource type="Animation" id="Animation_84hgj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.00330758, 0, -0.00681281)]
+}
+
+[sub_resource type="Animation" id="Animation_62288"]
+resource_name = "ball"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_62288"]
+_data = {
+&"RESET": SubResource("Animation_84hgj"),
+&"ball": SubResource("Animation_62288"),
+&"puddle": SubResource("Animation_o0hai")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o0hai"]
+radius = 0.221648
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_84hgj"]
+
+[node name="Bullet" type="CharacterBody3D" groups=["Projectile"]]
+collision_layer = 0
+floor_stop_on_slope = false
 script = ExtResource("1_ma0cl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.8, 0, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00330758, 0, -0.00681281)
 mesh = SubResource("SphereMesh_wv221")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.126807, 0.330023)
-target_position = Vector3(0, 0, -1)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshInstance3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_62288")
+}
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 11.821
 one_shot = true
 autostart = true
 
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2.76663, 0, 0, 0, 2.76663, 0, 0, 0, 2.76663, 0, 0.0016253, 0)
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.30481e-06, 0.00487071, -0.00119174)
+shape = SubResource("SphereShape3D_o0hai")
+debug_color = Color(0.885225, 0.000304379, 0.808341, 0.42)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.08015, 0)
+light_color = Color(0.705763, 0.00111366, 0.000609528, 1)
+light_energy = 8.46
+spot_range = 13.9357
+spot_attenuation = 0.0
+spot_angle = 7.88676
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_84hgj")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
