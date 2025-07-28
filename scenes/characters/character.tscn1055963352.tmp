@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://wu01ona5vmkh"]
+
+[ext_resource type="Script" uid="uid://bieuyapg5x7wp" path="res://scenes/characters/base_character.gd" id="1_xktx3"]
+[ext_resource type="PackedScene" uid="uid://cyx14aqx5bc2m" path="res://scenes/entities/default_weapon.tscn" id="2_u1txu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u1txu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xktx3"]
+albedo_color = Color(0.194893, 1.85003e-07, 3.60981e-08, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u1txu"]
+material = SubResource("StandardMaterial3D_xktx3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_832rb"]
+albedo_color = Color(0.74902, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xktx3"]
+material = SubResource("StandardMaterial3D_832rb")
+
+[node name="BaseCharacter" type="CharacterBody3D"]
+script = ExtResource("1_xktx3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_u1txu")
+
+[node name="CharacterModel" type="Node3D" parent="."]
+
+[node name="DefaultWeapon" parent="CharacterModel" instance=ExtResource("2_u1txu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.568701, 1.05538, -0.489095)
+
+[node name="Face" type="MeshInstance3D" parent="CharacterModel"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.44454, -0.489095)
+mesh = SubResource("BoxMesh_u1txu")
+
+[node name="Placeholder" type="MeshInstance3D" parent="CharacterModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_xktx3")
+skeleton = NodePath("../..")
+
+[node name="CameraController" type="Node3D" parent="."]
+
+[node name="CameraTarget" type="Node3D" parent="CameraController"]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 30, 30, 32)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController/CameraTarget"]
+transform = Transform3D(1, 0, 0, 0, 1, -5.66244e-07, 0, -5.96046e-08, 1, 0.954621, -0.202313, -6.72203)
+projection = 1
+size = 18.0
+far = 150.0

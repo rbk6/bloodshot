@@ -1,13 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjcilyx3cby2v"]
+[gd_scene load_steps=10 format=3 uid="uid://bjcilyx3cby2v"]
 
 [ext_resource type="PackedScene" uid="uid://bl33mwhonia12" path="res://scenes/characters/fella.tscn" id="1_slcna"]
-[ext_resource type="PackedScene" uid="uid://bcowmlb0w3cgr" path="res://scenes/characters/enemy_test.tscn" id="2_wa0ju"]
+[ext_resource type="PackedScene" uid="uid://dehudmbqu4kqs" path="res://assets/models/maps/Surgery room3.glb" id="2_6s5ho"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slcna"]
-albedo_color = Color(0.200069, 0, 0.0181717, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb4g5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_slcna"]
-sky_top_color = Color(0.572491, 0.259321, 0.189954, 1)
+sky_top_color = Color(0.820762, 0.421872, 0.332092, 1)
 sky_horizon_color = Color(0.305259, 0.152861, 0.247486, 1)
 ground_bottom_color = Color(0.0435671, 0.0318969, 0.0208243, 1)
 ground_horizon_color = Color(0.243137, 0.168627, 0.337255, 1)
@@ -19,29 +18,82 @@ sky_material = SubResource("ProceduralSkyMaterial_slcna")
 background_mode = 2
 background_energy_multiplier = 1.2
 sky = SubResource("Sky_wa0ju")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0.461862, 1.05888e-06, 2.64719e-07, 1)
+volumetric_fog_length = 87.3
+volumetric_fog_ambient_inject = 0.55
+
+[sub_resource type="FogMaterial" id="FogMaterial_m2il8"]
+density = 0.08
+albedo = Color(0.32, 0.0864, 0.117547, 1)
+height_falloff = 1e-05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6s5ho"]
+size = Vector3(15, 1, 53)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m2il8"]
+size = Vector3(16.6828, 1, 13.0757)
 
 [node name="OperatingRoom" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.405762, -0.866025, -0.29216, 0.7028, -0.5, 0.506036, -0.58432, 0, 0.811523, 0, 13.2617, 0)
+
 [node name="ReflectionProbe" type="ReflectionProbe" parent="."]
 transform = Transform3D(0.811523, 0, 0.58432, 0, 1, 0, -0.58432, 0, 0.811523, 0, 13.2617, 0)
-visible = false
 intensity = 0.3
 size = Vector3(100, 100, 100)
 box_projection = true
 interior = true
+ambient_mode = 2
+ambient_color = Color(0.176, 0.22, 0.176, 1)
 
 [node name="Map" type="Node3D" parent="."]
 
 [node name="BaseCharacter" parent="Map" instance=ExtResource("1_slcna")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275324, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 14.1811, 14.5079, 20.7884)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
-use_collision = true
-size = Vector3(50, 0.1, 50)
-material = SubResource("StandardMaterial3D_slcna")
+[node name="Surgery room3" parent="Map" instance=ExtResource("2_6s5ho")]
+transform = Transform3D(0.573576, 0, -0.819152, 0, 1, 0, 0.819152, 0, 0.573576, 0, 0, 0)
 
-[node name="Node3D" parent="Map" instance=ExtResource("2_wa0ju")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 1)
+[node name="Cube" parent="Map/Surgery room3" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_mb4g5")
+
+[node name="Plane_013" parent="Map/Surgery room3" index="20"]
+visible = false
+
+[node name="Sphere" parent="Map/Surgery room3" index="22"]
+transform = Transform3D(3.59687, 0, -2.71465, 0, 2.66658, 0, 2.71465, 0, 3.59687, -21.9801, -1.96771, 32.232)
+
+[node name="Cube_006" parent="Map/Surgery room3" index="23"]
+transform = Transform3D(4.35689, 0, -1.27115, 0, 4.33051, 0, 3.28825, 0, 1.68426, -22.3566, 28.2062, 32.4689)
+
+[node name="Plane_010" parent="Map/Surgery room3" index="25"]
+transform = Transform3D(3.89616, -2.91305, 0, 0, 0, -3.91154, 2.94052, 3.85975, 0, -19.7093, 28.2966, 29.6054)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6s5ho")
+
+[node name="FogVolume" type="FogVolume" parent="WorldEnvironment"]
+transform = Transform3D(0.584873, 0, -0.811125, 0, 1, 0, 0.811125, 0, 0.584873, 26.8038, 3.80971, -13.8856)
+size = Vector3(97.363, 37.2098, 157.844)
+material = SubResource("FogMaterial_m2il8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Bed" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.573576, 0, -0.819152, 0, 1, 0, 0.819152, 0, 0.573576, 14.0837, 13.4088, 20.7515)
+shape = SubResource("BoxShape3D_6s5ho")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Table" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(0.573576, 0, -0.819152, 0, 1, 0, 0.819152, 0, 0.573576, -14.1934, 14.3444, 13.3433)
+shape = SubResource("BoxShape3D_m2il8")
+
+[editable path="Map/Surgery room3"]

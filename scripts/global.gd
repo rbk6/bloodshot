@@ -2,7 +2,7 @@ extends Node
 
 # CONSTANTS
 # ---------
-const SPEED = 5.0
+const SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 const JUMP_START_DURATION = 0.1
 
@@ -53,7 +53,7 @@ var has_bullet: bool = true
 
 # MISC
 # -----
-var bullet_transition = 0
+var bullet_transition: bool = false
 
 # RENDERING
 # ---------

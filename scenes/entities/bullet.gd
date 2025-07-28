@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const SPEED = 30.0
+const SPEED = 50.0
 
 @onready var mesh = $MeshInstance3D
 @onready var hitbox = $Area3D
@@ -28,13 +28,13 @@ func _process(delta: float) -> void:
 		anim_player.pause()
 
 func _on_timer_timeout():
-	Global.bullet_transition = 1
 	queue_free()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if is_detecting:
 		if body.is_in_group("Player"):
-			Global.bullet_transition = 1
+			Global.has_bullet = true
+			Global.bullet_transition = true
 			queue_free()
 		elif body.is_in_group("Enemy"):
 			is_bouncing_multiplier = 0.0

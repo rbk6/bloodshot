@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 var bullet = load("res://scenes/entities/Bullet.tscn")
-var defaultCharacter = preload("res://assets/models/characters/fella.glb")
+var defaultCharacter = preload("res://assets/models/characters/fella/fella.glb")
 var instance
 
 @onready var model = $CharacterModel
@@ -23,11 +23,10 @@ func _physics_process(delta: float) -> void:
 	update_state()
 	update_animation()
 	move_and_slide()
-	
-	if Global.bullet_transition > 0:
-		Global.has_bullet = true
+
+	if Global.bullet_transition:
 		blood_anim.play("get_blood")
-		Global.bullet_transition = 0
+		Global.bullet_transition = false
 		return
 
 func handle_input(delta: float) -> void:
@@ -50,15 +49,13 @@ func handle_input(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, Global.SPEED)
 		velocity.z = move_toward(velocity.z, 0, Global.SPEED)
 		
-	if Input.is_action_just_pressed("shoot") and Global.has_bullet:
-		shoot(delta)
-
 func update_state() -> void:
 	if Global.player_health <= 0:
 		Global.player_state = Global.PlayerState.DEATH
 		return
 		
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and Global.has_bullet:
+		shoot()
 		Global.player_state = Global.PlayerState.SHOOTING
 		anim_player.play_section("Shoot",0.12)
 		await get_tree().create_timer(1).timeout
@@ -92,7 +89,7 @@ func update_animation():
 	else:
 		push_warning("animation not found: " + anim_attr.anim_name)
 
-func shoot(_delta: float) -> void:
+func shoot() -> void:
 	Global.has_bullet = false
 	blood_anim.play("use_blood")
 	instance = bullet.instantiate()
