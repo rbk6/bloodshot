@@ -1,9 +1,106 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl33mwhonia12"]
+[gd_scene load_steps=9 format=3 uid="uid://bl33mwhonia12"]
 
 [ext_resource type="PackedScene" uid="uid://wu01ona5vmkh" path="res://scenes/characters/character.tscn" id="1_aja0k"]
 [ext_resource type="PackedScene" uid="uid://bo6hujl2q15vy" path="res://assets/models/characters/fella.glb" id="2_lrdjc"]
 
-[node name="BaseCharacter" instance=ExtResource("1_aja0k")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrdjc"]
+blend_mode = 3
+albedo_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+metallic = 0.89
+refraction_scale = -0.96
+
+[sub_resource type="SphereMesh" id="SphereMesh_lrdjc"]
+material = SubResource("StandardMaterial3D_lrdjc")
+
+[sub_resource type="Animation" id="Animation_dujlg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.0707296, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.238069, 0.0238069, 0.238069)]
+}
+
+[sub_resource type="Animation" id="Animation_lrdjc"]
+resource_name = "get_blood"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.164939, 1),
+"update": 0,
+"values": [Vector3(0, -0.0707296, 0), Vector3(0, 0.186464, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.125, 1),
+"update": 0,
+"values": [Vector3(0.238069, 0.0238069, 0.238069), Vector3(0.437139, 0.0437139, 0.437139)]
+}
+
+[sub_resource type="Animation" id="Animation_3rnsc"]
+resource_name = "use_blood"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1.46409, 1),
+"update": 0,
+"values": [Vector3(0, 0.186464, 0), Vector3(0, -0.0707296, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(4.28709, 1),
+"update": 0,
+"values": [Vector3(0.437139, 0.0437139, 0.437139), Vector3(0.238069, 0.0238069, 0.238069)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_64sfj"]
+_data = {
+&"RESET": SubResource("Animation_dujlg"),
+&"get_blood": SubResource("Animation_lrdjc"),
+&"use_blood": SubResource("Animation_3rnsc")
+}
+
+[node name="BaseCharacter" groups=["Player"] instance=ExtResource("1_aja0k")]
 
 [node name="DefaultWeapon" parent="CharacterModel" index="0"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.224543, 0.958893, -0.489095)
@@ -45,20 +142,29 @@ bones/33/rotation = Quaternion(-0.707107, -5.90056e-07, 5.90056e-07, 0.707107)
 [node name="Face" parent="CharacterModel/fella/Armature/Skeleton3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95134e-09, 0.993875, 3.5479e-10)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterModel/fella/Armature/Skeleton3D/Face/Face" index="0"]
+transform = Transform3D(0.238069, 0, -3.86967e-15, 0, 0.0238069, 0, 3.86967e-15, 0, 0.238069, 0, -0.0707296, 0)
+mesh = SubResource("SphereMesh_lrdjc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterModel/fella/Armature/Skeleton3D/Face/Face/MeshInstance3D" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_64sfj")
+}
+
 [node name="L Arm D_2" parent="CharacterModel/fella/Armature/Skeleton3D" index="1"]
-transform = Transform3D(0.0301296, -0.0814957, -0.135073, 0.0334433, 0.178228, -0.0568152, 0.154047, -0.0227534, 0.0387529, 0.216382, 0.572138, -0.00737602)
+transform = Transform3D(0.0301296, -0.0814957, -0.135073, 0.033443, 0.178228, -0.0568153, 0.154047, -0.0227531, 0.0387527, 0.216382, 0.572138, -0.00737636)
 
 [node name="L Arm U_2" parent="CharacterModel/fella/Armature/Skeleton3D" index="2"]
-transform = Transform3D(0.00319335, -0.0315088, -0.0298144, -0.00391496, 0.0834555, -0.0114992, 0.0325429, 0.0131317, 0.00154224, 0.158627, 0.706703, -0.0116277)
+transform = Transform3D(0.00319335, -0.0315088, -0.0298144, -0.003915, 0.0834555, -0.0114992, 0.0325429, 0.0131318, 0.00154222, 0.158627, 0.706703, -0.0116278)
 
 [node name="L Shoulder" parent="CharacterModel/fella/Armature/Skeleton3D" index="3"]
-transform = Transform3D(0.00795709, -0.0119321, -0.0368549, -0.0158926, 0.0333068, -0.0142146, 0.0353283, 0.0176707, 0.00190643, 0.119256, 0.81017, -0.00128036)
+transform = Transform3D(0.00795709, -0.0119321, -0.0368549, -0.0158926, 0.0333068, -0.0142146, 0.0353283, 0.0176708, 0.00190641, 0.119256, 0.81017, -0.00128038)
 
 [node name="Cannon D" parent="CharacterModel/fella/Armature/Skeleton3D" index="4"]
-transform = Transform3D(0.0818477, -0.0235491, -0.00660776, 0.0250684, 0.0779934, 0.0151929, 0.00181899, -0.0152433, 0.0879436, 0.302109, 0.394421, 0.0315168)
+transform = Transform3D(0.0818477, -0.0235492, -0.00660776, 0.0250684, 0.0779934, 0.0151929, 0.00181898, -0.0152434, 0.0879436, 0.302109, 0.394421, 0.0315169)
 
 [node name="Cannon U" parent="CharacterModel/fella/Armature/Skeleton3D" index="5"]
-transform = Transform3D(0.0585666, -0.0265515, -0.00462681, 0.0196537, 0.07993, 0.0106382, 0.00100516, -0.0158035, 0.0615789, 0.251917, 0.497389, 0.00995706)
+transform = Transform3D(0.0585666, -0.0265516, -0.00462681, 0.0196537, 0.07993, 0.0106382, 0.00100515, -0.0158035, 0.0615789, 0.251917, 0.497389, 0.00995707)
 
 [node name="Face" parent="CharacterModel" index="2"]
 visible = false

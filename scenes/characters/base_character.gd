@@ -8,6 +8,10 @@ var instance
 @onready var anim_player = $CharacterModel/fella/AnimationPlayer
 @onready var camera_target = $CameraController/CameraTarget
 @onready var gun_barrel = $CharacterModel/DefaultWeapon/RayCast3D
+@onready var blood_anim = $CharacterModel/fella/Armature/Skeleton3D/Face/Face/MeshInstance3D/AnimationPlayer
+
+func _ready() -> void:
+	add_to_group("Player",true)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -20,6 +24,12 @@ func _physics_process(delta: float) -> void:
 	update_animation()
 	move_and_slide()
 	
+	if Global.bullet_transition > 0:
+		Global.has_bullet = true
+		blood_anim.play("get_blood")
+		Global.bullet_transition = 0
+		return
+
 func handle_input(delta: float) -> void:
 	# handle directional input
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -40,7 +50,7 @@ func handle_input(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, Global.SPEED)
 		velocity.z = move_toward(velocity.z, 0, Global.SPEED)
 		
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and Global.has_bullet:
 		shoot(delta)
 
 func update_state() -> void:
@@ -48,9 +58,10 @@ func update_state() -> void:
 		Global.player_state = Global.PlayerState.DEATH
 		return
 		
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot"):
 		Global.player_state = Global.PlayerState.SHOOTING
-		return
+		anim_player.play_section("Shoot",0.12)
+		await get_tree().create_timer(1).timeout
 
 	if not is_on_floor():
 		if velocity.y > 0:
@@ -82,6 +93,8 @@ func update_animation():
 		push_warning("animation not found: " + anim_attr.anim_name)
 
 func shoot(_delta: float) -> void:
+	Global.has_bullet = false
+	blood_anim.play("use_blood")
 	instance = bullet.instantiate()
 	instance.position = gun_barrel.global_position
 	instance.transform.basis = gun_barrel.global_transform.basis
